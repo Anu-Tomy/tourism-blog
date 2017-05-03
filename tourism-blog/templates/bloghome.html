@@ -1,0 +1,28 @@
+{% extends "base.html" %} <!-- This line includes this html into the base template -->
+{% block content %} <!-- starting the block to insert into base.html -->
+<hr>
+{% for post in posts %}
+    <div class="blogpost">
+        {% set id = post.key().id() %}
+        {% set link = "/blog/" ~ id %}
+        <a href={{link}}><div class="blogpost-subject">{{post.subject}}</div></a>
+
+
+        <pre class="blogpost-content">{{post.content}}</pre> <!-- "<pre> preserves the formatting of whatever is between the tags" -->
+        {{post.created.strftime("%b %d, %Y")}}
+    </div>
+{% endfor %}
+<br></br>
+<footer>
+{% if prev_page %}
+    <a href="/blog?page={{prev_page}}">Prev</a>
+{% endif %}
+
+
+{% if next_page %}
+    <a href="/blog?page={{next_page}}">Next</a>
+{% endif %}
+
+</footer>
+
+{% endblock %} <!-- ending the block that gets inserted into base.html-->
